@@ -1,0 +1,23 @@
+# Dockerfile.maven
+
+FROM maven:3.8.4-openjdk-11 AS builder
+
+WORKDIR /app
+
+COPY pom.xml .
+COPY src ./src
+
+# Run tests
+RUN mvn test
+
+RUN mvn clean package
+
+FROM openjdk:8-jre-slim
+
+WORKDIR /app
+
+COPY --from=builder /app/target/*.war ./app.war
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "app.war"]

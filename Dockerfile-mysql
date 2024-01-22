@@ -1,0 +1,12 @@
+# Dockerfile.mysql
+
+FROM mysql:latest
+
+ENV MYSQL_DATABASE=jdbc:mysql://172.17.0.2:3306/accwe-hospital
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_USER=root
+ENV MYSQL_PASSWORD=root
+
+EXPOSE 3306
+
+CMD ["mysqld"]
